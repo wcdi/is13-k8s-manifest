@@ -13,3 +13,7 @@ spec:
             backend:
               serviceName: php-apache
               servicePort: 8080
+          - path: /app2(/|$)(.*)
+            backend:
+              serviceName: nginx
+              servicePort: 9080

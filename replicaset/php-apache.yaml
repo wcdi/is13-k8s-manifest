@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: php-apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-apache
+  template:
+    metadata:
+      labels:
+        app: php-apache
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: php-apache-config
+      containers:
+        - name: php-apache-container
+          image: php:7.2-apache
+          ports:
+            - name: http-port
+              containerPort: 80
+          volumeMounts:
+            - name: config-volume
+              mountPath: /var/www/html
